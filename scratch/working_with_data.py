@@ -19,7 +19,7 @@ def plot_histogram(points: List[float], bucket_size: float, title: str = ""):
 
 
 import random
-from scratch.probability import inverse_normal_cdf
+from probability import inverse_normal_cdf
 
 def random_normal() -> float:
     """Returns a random draw from a standard normal distribution"""
@@ -38,17 +38,17 @@ plt.title("Very Different Joint Distributions")
 # plt.show()
 
 
-plt.savefig('im/working_scatter.png')
+# plt.savefig('im/working_scatter.png')
 plt.gca().clear()
 
 
-from scratch.statistics import correlation
+from statistics import correlation
 
 
 assert 0.89 < correlation(xs, ys1) < 0.91
 assert -0.91 < correlation(xs, ys2) < -0.89
 
-from scratch.linear_algebra import Matrix, Vector, make_matrix
+from linear_algebra import Matrix, Vector, make_matrix
 
 def correlation_matrix(data: List[Vector]) -> Matrix:
     """
@@ -145,7 +145,7 @@ assert try_parse_row(["MSFT", "2018-12-14", "106.03"]) == stock
 from dateutil.parser import parse
 import csv
 
-with open("stocks.csv", "r") as f:
+with open(r"D:\Data\experiment\git_hub\data-science-from-scratch\stocks.csv", "r") as f:
     reader = csv.DictReader(f)
     rows = [[row['Symbol'], row['Date'], row['Close']]
             for row in reader]
@@ -232,7 +232,7 @@ avg_daily_change = {
 # October is the best month
 assert avg_daily_change[10] == max(avg_daily_change.values())
 
-from scratch.linear_algebra import distance
+from linear_algebra import distance
 
 a_to_b = distance([63, 150], [67, 160])        # 10.77
 a_to_c = distance([63, 150], [70, 171])        # 22.14
@@ -244,8 +244,8 @@ b_to_c = distance([170.2, 160], [177.8, 171])  # 13.37
 
 from typing import Tuple
 
-from scratch.linear_algebra import vector_mean
-from scratch.statistics import standard_deviation
+from linear_algebra import vector_mean
+from statistics import standard_deviation
 
 def scale(data: List[Vector]) -> Tuple[Vector, Vector]:
     """returns the means and standard deviations for each position"""
@@ -391,20 +391,20 @@ pca_data = [
 [25.2049825789225,-14.1592086208169]
 ]
 
-from scratch.linear_algebra import subtract
+from linear_algebra import subtract
 
 def de_mean(data: List[Vector]) -> List[Vector]:
     """Recenters the data to have mean 0 in every dimension"""
     mean = vector_mean(data)
     return [subtract(vector, mean) for vector in data]
 
-from scratch.linear_algebra import magnitude
+from linear_algebra import magnitude
 
 def direction(w: Vector) -> Vector:
     mag = magnitude(w)
     return [w_i / mag for w_i in w]
 
-from scratch.linear_algebra import dot
+from linear_algebra import dot
 
 def directional_variance(data: List[Vector], w: Vector) -> float:
     """
@@ -421,7 +421,7 @@ def directional_variance_gradient(data: List[Vector], w: Vector) -> Vector:
     return [sum(2 * dot(v, w_dir) * v[i] for v in data)
             for i in range(len(w))]
 
-from scratch.gradient_descent import gradient_step
+from gradient_descent import gradient_step
 
 def first_principal_component(data: List[Vector],
                               n: int = 100,
@@ -438,14 +438,14 @@ def first_principal_component(data: List[Vector],
 
     return direction(guess)
 
-from scratch.linear_algebra import scalar_multiply
+from linear_algebra import scalar_multiply
 
 def project(v: Vector, w: Vector) -> Vector:
     """return the projection of v onto the direction w"""
     projection_length = dot(v, w)
     return scalar_multiply(projection_length, w)
 
-from scratch.linear_algebra import subtract
+from linear_algebra import subtract
 
 def remove_projection_from_vector(v: Vector, w: Vector) -> Vector:
     """projects v onto w and subtracts the result from v"""
@@ -476,7 +476,7 @@ def main():
     plt.close()
 
     import random
-    from scratch.probability import inverse_normal_cdf
+    from probability import inverse_normal_cdf
 
     random.seed(0)
 
@@ -501,7 +501,7 @@ def main():
     plt.savefig('im/working_histogram_normal.png')
     plt.gca().clear()
 
-    from scratch.statistics import correlation
+    from statistics import correlation
 
     print(correlation(xs, ys1))      # about 0.9
     print(correlation(xs, ys2))      # about -0.9

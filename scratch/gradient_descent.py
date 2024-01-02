@@ -1,4 +1,4 @@
-from scratch.linear_algebra import Vector, dot
+from linear_algebra import Vector, dot
 
 def sum_of_squares(v: Vector) -> float:
     """Computes the sum of squared elements in v"""
@@ -17,6 +17,14 @@ def square(x: float) -> float:
 def derivative(x: float) -> float:
     return 2 * x
 
+def partial_difference_quotient(f: Callable[[Vector], float],
+                                v: Vector,
+                                i: int,
+                                h: float) -> float:
+    """Returns the i-th partial difference quotient of f at v"""
+    w = [v_j + (h if j==i else 0) for j, v_j in enumerate(v)]
+    return (f(w) - f(v)) / h
+
 def estimate_gradient(f: Callable[[Vector], float],
                       v: Vector,
                       h: float = 0.0001):
@@ -24,7 +32,7 @@ def estimate_gradient(f: Callable[[Vector], float],
             for i in range(len(v))]
 
 import random
-from scratch.linear_algebra import distance, add, scalar_multiply
+from linear_algebra import distance, add, scalar_multiply
 
 def gradient_step(v: Vector, gradient: Vector, step_size: float) -> Vector:
     """Moves `step_size` in the `gradient` direction from `v`"""
@@ -105,7 +113,7 @@ def main():
     
     # First "Using Gradient Descent to Fit Models" example
     
-    from scratch.linear_algebra import vector_mean
+    from linear_algebra import vector_mean
     
     # Start with random values for slope and intercept.
     theta = [random.uniform(-1, 1), random.uniform(-1, 1)]
